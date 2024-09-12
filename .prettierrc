@@ -1,0 +1,3 @@
+{
+  "endOfLine": "lf" // or "crlf" if you are working in Windows and prefer CRLF
+}
