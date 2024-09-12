@@ -17,7 +17,7 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <div className="bg-background text-primary-green absolute pt-6 pl-3">
+    <div className="bg-background text-primary-green absolute top-3 left-3">
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"

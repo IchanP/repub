@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import { Providers } from "../providers";
-import Header from "../../components/Header";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -37,13 +37,10 @@ export default async function RootLayout({
       >
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <Header />
+            <ThemeSwitcher />
             {children}
           </NextIntlClientProvider>
         </Providers>
-        <footer className="row-start-3 flex gap-4 sm:gap-6 flex-wrap items-center justify-center">
-          <p className="text-sm sm:text-base">Template</p>
-        </footer>
       </body>
     </html>
   );
