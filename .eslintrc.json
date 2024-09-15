@@ -19,5 +19,5 @@
       "rules": {}
     }
   ],
-  "ignorePatterns": ["node_modules/", "dist/", "build/"]
+  "ignorePatterns": ["*d.ts","node_modules/", "dist/", "build/"]
 }
