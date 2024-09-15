@@ -11,8 +11,11 @@ const config: Config = {
     extend: {
       colors: {
         lightbg: "#f5f5f5",
+        lightPrimary: "#e2e0e0",
+        lightHover: "#D1D5DB",
         darkbg: "#020305",
-        primary: "#1d4ed8",
+        darkPrimary: "#1d1c1c",
+        darkHover: "#262c36",
       },
     },
   },
