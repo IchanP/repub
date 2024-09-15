@@ -6,7 +6,7 @@ import { useRenditionStore } from "@/stores/RenditionState";
 
 const ReaderWrapper = () => {
   // For testing purposes currently
-  const epubUrl = "/epubs/oreimov1.epub";
+  const epubUrl = "/epubs/oreimov1Fixed.epub";
   const [location, setLocation] = useState<string | number>(0);
   const setRendition = useRenditionStore((state) => state.setRendition);
 
@@ -15,7 +15,7 @@ const ReaderWrapper = () => {
   };
 
   return (
-    <div className="w-2/4 h-full">
+    <div className="w-full h-full md:w-2/4 md:h-full">
       <ReactReader
         url={epubUrl}
         location={location}

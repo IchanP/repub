@@ -37,7 +37,6 @@ export default async function RootLayout({
       >
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <ThemeSwitcher />
             {children}
           </NextIntlClientProvider>
         </Providers>
