@@ -4,7 +4,7 @@ import "../globals.css";
 import { Providers } from "../providers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ThemeSwitcher from "@/components/logic/ThemeSwitcher";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
