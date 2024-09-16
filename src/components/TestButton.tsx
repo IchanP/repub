@@ -1,12 +1,13 @@
 "use client";
 import { useRenditionStore } from "@/stores/RenditionState";
+import Rendition from "epubjs/types/rendition";
 
 const TestButton = () => {
-  const rendition = useRenditionStore((state) => state.rendition);
-  let dualPage = false;
+  const rendition = useRenditionStore((state) => state.rendition) as Rendition;
+  const dualPage = false;
   const handleClick = () => {
-    rendition?.spread(dualPage ? "always" : "none");
-    dualPage = !dualPage;
+    console.log(rendition.book.navigation.toc[6]);
+    rendition.display(rendition.book.navigation.toc[6].href);
   };
   return (
     <div className="w-full flex col items-center justify-center">

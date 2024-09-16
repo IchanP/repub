@@ -14,17 +14,18 @@ const ReaderWrapper = () => {
   const setRendition = useRenditionStore((state) => state.setRendition);
   const isMobile = useIsMobileStore((state) => state.isMobile);
 
-  const handleRendition = (rendition: Rendition) => {
+  const handleRendition = async (rendition: Rendition) => {
     setRendition(rendition);
   };
 
   return (
-    <div className="w-full h-full md:w-2/4 md:h-full">
+    <div className="w-full h-full xl:w-5/6 md:h-full">
       <ReactReader
         url={epubUrl}
         location={location}
         locationChanged={(epubcfi: string) => setLocation(epubcfi)}
         getRendition={handleRendition}
+        epubOptions={{ spread: "always" }}
         swipeable={isMobile}
       />
     </div>
