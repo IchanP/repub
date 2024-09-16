@@ -1,6 +1,6 @@
 import ReaderWrapper from "@/components/logic/ReaderWrapper";
 import ThemeSwitcher from "@/components/logic/ThemeSwitcher";
-import TestButton from "@/components/testButton";
+import TestButton from "@/components/TestButton";
 
 export default function Home() {
   return (
