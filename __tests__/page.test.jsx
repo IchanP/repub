@@ -3,6 +3,14 @@ import { render, screen } from "@testing-library/react";
 import Home from "@/app/[locale]/page";
 import { NextIntlClientProvider } from "next-intl";
 
+// Mock ReaderWrapper to prevent errors during testing
+jest.mock("@/components/logic/ReaderWrapper", () => ({
+  __esModule: true,
+  default: () => (
+    <div data-testid="mock-reader">Mock ReaderWrapper Component</div>
+  ),
+}));
+
 const locale = "en";
 const messages = {
   HomePage: {
@@ -11,15 +19,15 @@ const messages = {
 };
 
 describe("Page", () => {
-  it("renders a heading", () => {
+  it("renders main", () => {
     render(
       <NextIntlClientProvider locale={locale} messages={messages}>
         <Home />
       </NextIntlClientProvider>,
     );
 
-    const heading = screen.getByRole("heading", { level: 1 });
+    const div = screen.getByRole("main");
 
-    expect(heading).toBeInTheDocument();
+    expect(div).toBeInTheDocument();
   });
 });
