@@ -4,7 +4,6 @@ import "../globals.css";
 import { Providers } from "../providers";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -37,7 +36,6 @@ export default async function RootLayout({
       >
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <ThemeSwitcher />
             {children}
           </NextIntlClientProvider>
         </Providers>

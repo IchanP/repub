@@ -16,7 +16,9 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
-    "template": "file:"
+    "react-reader": "^2.0.11",
+    "template": "file:",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
