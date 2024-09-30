@@ -1,7 +1,7 @@
 import ReaderWrapper from "@/components/logic/ReaderWrapper";
 import ThemeSwitcher from "@/components/logic/ThemeSwitcher";
-import TestButton from "@/components/TestButton";
-
+/* import TestButton from "@/components/TestButton";
+ */
 export default function Home() {
   return (
     <div className="grid grid-rows-[0px_1fr_0px] items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
@@ -10,7 +10,7 @@ export default function Home() {
           <ThemeSwitcher />
         </div>
         <ReaderWrapper />
-        <TestButton />
+        {/* <TestButton /> */}
       </main>
     </div>
   );
