@@ -14,7 +14,8 @@
     "linebreak-style": "off" // Disable this if you're working across multiple OS environments
   }, 
   "env": {
-    "jest": true
+    "jest": true,
+    "node": true
   },
   "overrides": [
     {

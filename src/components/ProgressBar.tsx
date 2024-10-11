@@ -3,7 +3,10 @@ const ProgressBar = ({ progress }: { progress: number }) => {
   return (
     <div className="h-7 mt-2">
       {progress > 0 && progress < 100 && (
-        <div className="h-full relative bg-lightPrimary font-bold text-black text-lg justify-center">
+        <div
+          data-testid="progressbar"
+          className="h-full relative bg-lightPrimary font-bold text-black text-lg justify-center"
+        >
           <div
             className="h-full bg-green-500 rounded-md"
             style={{

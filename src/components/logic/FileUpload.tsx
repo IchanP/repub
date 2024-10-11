@@ -71,6 +71,7 @@ const FileUpload = () => {
           <button
             onClick={uploadBook}
             className="bg-lightPrimary dark:bg-darkPrimary rounded-md px-3 py-2 mt-2 hover:bg-lightHover dark:hover:bg-darkHover font-bold shadow-lg"
+            data-testid="file-submit"
           >
             UPLOAD
           </button>

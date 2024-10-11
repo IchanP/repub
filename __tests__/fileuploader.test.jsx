@@ -1,7 +1,16 @@
-import { render, fireEvent, screen, cleanup } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  screen,
+  cleanup,
+  waitFor,
+} from "@testing-library/react";
 import FileUpload from "@/components/logic/FileUpload";
 import { File } from "buffer";
-import { mock } from "node:test";
+import axios from "axios";
+
+jest.mock("axios");
+
 // Helper function to render the component and upload a file
 const uploadMockFile = (mockFile) => {
   const uploadButton = screen.getByTestId("file-upload");
@@ -54,5 +63,34 @@ describe("FileUpload Component", () => {
     const errorMesage = screen.getByText("Only files under 90mb are allowed.");
 
     expect(errorMesage).toBeInTheDocument();
+  });
+
+  it("Should render the progress bar during upload", async () => {
+    axios.post.mockImplementation((_url, _fileData, options) => {
+      const total = 100;
+      const uploadProgress = options.onUploadProgress;
+
+      setTimeout(() => uploadProgress({ loaded: 50, total }), 200);
+      setTimeout(() => uploadProgress({ loaded: 100, total }), 400);
+
+      return Promise.resolve({ status: 200 });
+    });
+
+    const fileInput = screen.getByTestId("file-upload");
+    const file = new File(["dummy content"], "book.epub", {
+      type: "application/epub+zip",
+    });
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    const uploadButton = screen.getByTestId("file-submit");
+    fireEvent.click(uploadButton);
+
+    // Check progress bar is visible during upload
+    await waitFor(() => expect(screen.getByText("50%")).toBeInTheDocument());
+
+    // Wait for upload to finish and progress bar to disappear
+    await waitFor(() => {
+      expect(screen.queryByTestId("progressbar")).not.toBeInTheDocument();
+    });
   });
 });
