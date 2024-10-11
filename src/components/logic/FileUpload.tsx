@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 const FileUpload = () => {
+  const MAX_FILE_SIZE = 90_000_000; // 90mb
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>();
   const fileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,6 +12,9 @@ const FileUpload = () => {
     if (file && file.type !== "application/epub+zip") {
       setSelectedFile(null);
       setErrorMessage("Only files in ePub format are allowed.");
+    } else if (file && file.size > MAX_FILE_SIZE) {
+      setSelectedFile(null);
+      setErrorMessage("Only files under 90mb are allowed.");
     } else {
       setSelectedFile(file);
       setErrorMessage("");
