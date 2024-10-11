@@ -15,6 +15,7 @@ const config: Config = {
         lightHover: "#D1D5DB",
         darkbg: "#020305",
         darkPrimary: "#1d1c1c",
+        darkSecondary: "#2c2b2b",
         darkHover: "#262c36",
       },
     },
