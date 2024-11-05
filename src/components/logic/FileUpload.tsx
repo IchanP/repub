@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import ProgressBar from "../ProgressBar";
+import { logger } from "@/logger";
 
 const FileUpload = () => {
   const MAX_FILE_SIZE = 90_000_000; // 90mb
@@ -38,8 +39,10 @@ const FileUpload = () => {
             setProgress(percentCompleted);
           },
         });
+        // TODO might need to redirect here.
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err: unknown) {
-        // TODO have a logger that logs this.
+        // Error is logged on the api route.
         setErrorMessage("Something went wrong while uploading.");
       }
     } else {
