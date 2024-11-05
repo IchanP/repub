@@ -13,7 +13,6 @@ const FileUpload = () => {
 
   const fileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files ? event.target.files[0] : null;
-    console.log(file);
     if (file && file.type !== "application/epub+zip") {
       setSelectedFile(null);
       setErrorMessage("Only files in ePub format are allowed.");

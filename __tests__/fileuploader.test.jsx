@@ -11,6 +11,9 @@ import axios from "axios";
 
 jest.mock("axios");
 
+let textMockFile;
+let epubMockFile;
+
 // Helper function to render the component and upload a file
 const uploadMockFile = (mockFile) => {
   const uploadButton = screen.getByTestId("file-upload");
@@ -21,13 +24,16 @@ afterEach(() => {
   cleanup();
 });
 beforeEach(() => {
+  textMockFile = new File(["content"], "test.txt", { type: "text/plain" });
+  epubMockFile = new File(["content"], "valid.epub", {
+    type: "application/epub+zip",
+  });
   render(<FileUpload />);
 });
 
 describe("FileUpload Component", () => {
   it("Renders error message on wrong file type", () => {
-    const mockFile = new File(["content"], "test.txt", { type: "text/plain" });
-    uploadMockFile(mockFile);
+    uploadMockFile(textMockFile);
 
     const errorMessage = screen.getByText(
       "Only files in ePub format are allowed.",
@@ -36,16 +42,11 @@ describe("FileUpload Component", () => {
   });
 
   it("Removes the error message after valid ePub is selected", () => {
-    const mockFile = new File(["content"], "test.txt", { type: "text/plain" });
-    uploadMockFile(mockFile);
+    uploadMockFile(textMockFile);
     const errorMessage = screen.getByText(
       "Only files in ePub format are allowed.",
     );
     expect(errorMessage).toBeInTheDocument();
-
-    const epubMockFile = new File(["content"], "valid.epub", {
-      type: "application/epub+zip",
-    });
 
     uploadMockFile(epubMockFile);
 
@@ -53,12 +54,9 @@ describe("FileUpload Component", () => {
   });
 
   it("Should display an error message if the file size is over 90mb", () => {
-    const mockFile = new File(["content"], "valid.epub", {
-      type: "application/epub+zip",
-    });
-    Object.defineProperty(mockFile, "size", { value: 90_000_001 });
+    Object.defineProperty(epubMockFile, "size", { value: 90_000_001 });
 
-    uploadMockFile(mockFile);
+    uploadMockFile(epubMockFile);
 
     const errorMesage = screen.getByText("Only files under 90mb are allowed.");
 
@@ -76,11 +74,7 @@ describe("FileUpload Component", () => {
       return Promise.resolve({ status: 200 });
     });
 
-    const fileInput = screen.getByTestId("file-upload");
-    const file = new File(["dummy content"], "book.epub", {
-      type: "application/epub+zip",
-    });
-    fireEvent.change(fileInput, { target: { files: [file] } });
+    uploadMockFile(epubMockFile);
 
     const uploadButton = screen.getByTestId("file-submit");
     fireEvent.click(uploadButton);
