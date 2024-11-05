@@ -19,6 +19,7 @@
     "react": "^18",
     "react-dom": "^18",
     "template": "file:",
+    "winston": "^3.16.0",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {

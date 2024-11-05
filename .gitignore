@@ -37,4 +37,6 @@ next-env.d.ts
 
 epubs
 
+app.log
+
 .env
