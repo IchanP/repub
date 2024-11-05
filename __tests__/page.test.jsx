@@ -4,7 +4,7 @@ import Home from "@/app/[locale]/page";
 import { NextIntlClientProvider } from "next-intl";
 
 // Mock ReaderWrapper to prevent errors during testing
-jest.mock("@/components/logic/ReaderWrapper", () => ({
+jest.mock("@/components/logic/ReaderLogic/ReaderWrapper", () => ({
   __esModule: true /*  */,
   default: () => (
     <div data-testid="mock-reader">Mock ReaderWrapper Component</div>

@@ -8,6 +8,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.File({
       filename: "app.log",
+      silent: process.env.NODE_ENV !== "production",
     }),
     new winston.transports.Console({
       format: combine(
@@ -19,8 +20,10 @@ const logger = winston.createLogger({
           return `${timestamp} ${level}: ${message}`;
         }),
       ),
+      silent: process.env.NODE_ENV === "test",
     }),
   ],
 });
 
 export { logger };
+
