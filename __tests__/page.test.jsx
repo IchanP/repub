@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 
 // Mock ReaderWrapper to prevent errors during testing
 jest.mock("@/components/logic/ReaderWrapper", () => ({
-  __esModule: true,
+  __esModule: true /*  */,
   default: () => (
     <div data-testid="mock-reader">Mock ReaderWrapper Component</div>
   ),
