@@ -3,7 +3,6 @@
 import { useState } from "react";
 import axios from "axios";
 import ProgressBar from "../ProgressBar";
-import { logger } from "@/logger";
 
 const FileUpload = () => {
   const MAX_FILE_SIZE = 90_000_000; // 90mb
@@ -31,7 +30,7 @@ const FileUpload = () => {
       const fileData = new FormData();
       fileData.append("epubBook", selectedFile);
       try {
-        axios.post("api/upload", fileData, {
+        axios.post("/api/upload", fileData, {
           onUploadProgress: (progressEvent) => {
             const total = progressEvent.total ? progressEvent.total : 0;
             const current = progressEvent.loaded;

@@ -5,4 +5,3 @@ export class EpubProcessor {
     this.file = epub;
   }
 }
-
