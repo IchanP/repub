@@ -2,18 +2,6 @@
  * @jest-environment node
  */
 import { POST } from "../src/app/api/upload/route";
-import FormData from "form-data";
-import { Readable } from "stream";
-
-global.File = class MockFile {
-  constructor(chunks, name, options) {
-    this.chunks = chunks;
-    this.name = name;
-    this.type = options.type;
-    this.size = chunks.reduce((acc, chunk) => acc + chunk.length, 0);
-  }
-};
-
 let formData;
 let fileContentStream;
 
@@ -50,18 +38,18 @@ const expectResponse = async (req, statusCode, responseMessage) => {
 
 beforeEach(() => {
   formData = new FormData();
-  fileContentStream = Readable.from(["content"]);
+  const mockFile = new File(["dummy content"], "valid.epub", {
+    type: "application/epub+zip",
+  });
+  fileContentStream = mockFile;
 });
 
 // https://dev.to/dforrunner/unit-test-nextjs-13-app-router-api-routes-with-jest-and-react-testing-library-with-examples-including-prisma-example-367a
 // TODO READ ABOVE FOR TESTING
 describe("API Route: /api/upload", () => {
   it("Should return 301 when file type is epub and filesize is less than 90mb", async () => {
-    formData.append("file", fileContentStream, {
-      filename: "valid.epub",
-      type: "application/epub+zip",
-    });
-
+    formData.append("file", fileContentStream);
+    console.log(formData);
     const req = mockFormDataRequest(formData);
     expectResponse(req, 301, "File uploaded successfully");
   });
@@ -73,10 +61,10 @@ describe("API Route: /api/upload", () => {
   });
 
   it("Should return a 400 when file type is not epub", async () => {
-    formData.append("file", fileContentStream, {
-      filename: "invalid.pdf",
+    const mockFile = new File(["dummy content"], "valid.pdf", {
       type: "application/pdf",
     });
+    formData.append("file", mockFile);
 
     const req = mockFormDataRequest(formData);
     expectResponse(req, 400, "Invalid file type.");

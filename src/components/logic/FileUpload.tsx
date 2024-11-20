@@ -25,12 +25,13 @@ const FileUpload = () => {
     }
   };
 
-  const uploadBook = () => {
+  const uploadBook = async () => {
     if (selectedFile) {
       const fileData = new FormData();
-      fileData.append("epubBook", selectedFile);
+      fileData.append("file", selectedFile);
       try {
-        axios.post("/api/upload", fileData, {
+        // TODO error handling here
+        await axios.post("/api/upload", fileData, {
           onUploadProgress: (progressEvent) => {
             const total = progressEvent.total ? progressEvent.total : 0;
             const current = progressEvent.loaded;
@@ -38,7 +39,7 @@ const FileUpload = () => {
             setProgress(percentCompleted);
           },
         });
-        // TODO might need to redirect here.
+        // TODO need to redirect here.
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err: unknown) {
         // Error is logged on the api route.
