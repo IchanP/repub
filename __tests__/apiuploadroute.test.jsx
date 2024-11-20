@@ -3,7 +3,6 @@
  */
 import { POST } from "../src/app/api/upload/route";
 let formData;
-let fileContentStream;
 
 const mockFormDataRequest = (formData) => {
   const req = new Request("http://localhost/api/upload", {
@@ -38,18 +37,14 @@ const expectResponse = async (req, statusCode, responseMessage) => {
 
 beforeEach(() => {
   formData = new FormData();
-  const mockFile = new File(["dummy content"], "valid.epub", {
-    type: "application/epub+zip",
-  });
-  fileContentStream = mockFile;
 });
 
 // https://dev.to/dforrunner/unit-test-nextjs-13-app-router-api-routes-with-jest-and-react-testing-library-with-examples-including-prisma-example-367a
 // TODO READ ABOVE FOR TESTING
 describe("API Route: /api/upload", () => {
   it("Should return 301 when file type is epub and filesize is less than 90mb", async () => {
-    formData.append("file", fileContentStream);
-    console.log(formData);
+    const mockFile = createFile("valid.epub", "application/epub+zip");
+    formData.append("file", mockFile);
     const req = mockFormDataRequest(formData);
     expectResponse(req, 301, "File uploaded successfully");
   });
@@ -61,23 +56,25 @@ describe("API Route: /api/upload", () => {
   });
 
   it("Should return a 400 when file type is not epub", async () => {
-    const mockFile = new File(["dummy content"], "valid.pdf", {
-      type: "application/pdf",
-    });
+    const mockFile = createFile("invalid.pdf", "application/pdf");
     formData.append("file", mockFile);
 
     const req = mockFormDataRequest(formData);
     expectResponse(req, 400, "Invalid file type.");
   });
-  /* 
-  it("Should return a 413 when file is larger than 90mb", async () => {
-    formData.append("file", fileContentStream, {
-      filename: "valid.epub",
-      type: "application/epub+zip",
-      size: 90_000_001,
-    });
 
-    const req = createReqObject();
-    expectResponse(req, 413, "File is too large. Maximum size is 90mb.");
-  }); */
+  it("Should return a 400 when file is larger than 90mb", async () => {
+    const mockFile = createFile("invalid.epub", "application/epub+zip");
+    Object.defineProperty(mockFile, "size", { value: 90_000_001 });
+    formData.append("file", mockFile);
+
+    const req = mockFormDataRequest(formData);
+    expectResponse(req, 400, "File is too large. Maximum size is 90mb.");
+  });
 });
+
+function createFile(fileName, type) {
+  return new File(["dummy content"], fileName, {
+    type: type,
+  });
+}

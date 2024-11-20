@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { logger } from "@/logger";
-import util from "util";
+
+const MAX_FILE_SIZE = 90_000_000; // 90mb
+
 // TODO add documentation for this route that it expects the formdata to have a key named file.
 export async function POST(request: NextRequest) {
   try {
@@ -31,5 +33,11 @@ export async function POST(request: NextRequest) {
 function validateFile(file: FormDataEntryValue) {
   if (file.type !== "application/epub+zip") {
     throw new Error("Invalid file type.");
+  }
+  process.stdout.write("\nTest file properties:\n");
+  process.stdout.write(`Type: ${file.type}\n`);
+  process.stdout.write(`Name: ${file.size}\n`);
+  if (file.size > MAX_FILE_SIZE) {
+    throw new Error("File is too large. Maximum size is 90mb.");
   }
 }
