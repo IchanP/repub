@@ -9,7 +9,8 @@ export async function POST(request: NextRequest) {
     logger.info("POST api/upload", request);
     const epubStream = await request.formData();
     if (!epubStream) throw new Error("Missing upload content.");
-    const epubFile = epubStream.get("file");
+    const epubFile = epubStream.get("file") as File;
+    console.log(epubFile);
     validateFile(epubFile);
 
     return NextResponse.redirect("http://localhost.com", 301);
@@ -30,13 +31,10 @@ export async function POST(request: NextRequest) {
  * @param {FormData} file - The file to validate.
  * @throws {Error} - Throws an error with status code 400 and an error message describing the issue.
  */
-function validateFile(file: FormDataEntryValue) {
+function validateFile(file: File) {
   if (file.type !== "application/epub+zip") {
     throw new Error("Invalid file type.");
   }
-  process.stdout.write("\nTest file properties:\n");
-  process.stdout.write(`Type: ${file.type}\n`);
-  process.stdout.write(`Name: ${file.size}\n`);
   if (file.size > MAX_FILE_SIZE) {
     throw new Error("File is too large. Maximum size is 90mb.");
   }
