@@ -33,11 +33,19 @@ const mockFormDataRequest = (formData) => {
 
 const expectResponse = async (req, statusCode, responseMessage) => {
   const response = await POST(req);
-  expect(response.status).toBe(statusCode);
+  expect(response.status).toBe(
+    statusCode,
+    `Expected status code ${statusCode} but got ${response.status}`,
+  );
+
   if (response.status !== 301) {
     const json = await response.json();
-    expect(json.message).toBe(responseMessage);
+    expect(json.message).toBe(
+      responseMessage,
+      `Expected message "${responseMessage}" but got "${json.message}"`,
+    );
   }
+  return response;
 };
 
 beforeEach(() => {
@@ -70,7 +78,7 @@ describe("API Route: /api/upload", () => {
       type: "application/pdf",
     });
 
-    const req = mockFormDataRequest();
+    const req = mockFormDataRequest(formData);
     expectResponse(req, 400, "Invalid file type.");
   });
   /* 

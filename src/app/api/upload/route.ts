@@ -5,7 +5,6 @@ export async function POST(request: NextRequest) {
   try {
     logger.info("POST api/upload", request);
     const epubStream = await request.formData();
-    console.log(epubStream);
     if (!epubStream) throw new Error("Invalid argument");
 
     validateFile(epubStream);

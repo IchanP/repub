@@ -20,7 +20,7 @@ const logger = winston.createLogger({
           return `${timestamp} ${level}: ${message}`;
         }),
       ),
-      /*       silent: process.env.NODE_ENV === "test", */
+      silent: process.env.NODE_ENV === "test",
     }),
   ],
 });

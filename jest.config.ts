@@ -18,7 +18,8 @@ const config: Config = {
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\Pontu\\AppData\\Local\\Temp\\jest",
-
+  silent: false,
+  testLocationInResults: true,
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 
@@ -197,7 +198,23 @@ const config: Config = {
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
+  displayName: {
+    name: "CLIENT",
+    color: "blue",
+  },
 
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        classNameTemplate: "{classname}",
+        titleTemplate: "{title}",
+        ancestorSeparator: " › ",
+        includeConsoleOutput: true,
+      },
+    ],
+  ],
   // Whether to use watchman for file crawling
   // watchman: true,
 };
