@@ -30,7 +30,6 @@ const FileUpload = () => {
       const fileData = new FormData();
       fileData.append("file", selectedFile);
       try {
-        // TODO error handling here
         await axios.post("/api/upload", fileData, {
           onUploadProgress: (progressEvent) => {
             const total = progressEvent.total ? progressEvent.total : 0;
