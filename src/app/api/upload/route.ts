@@ -4,6 +4,8 @@ import { EpubProcessor } from "@/services/EpubProcessor";
 
 const MAX_FILE_SIZE = 90_000_000; // 90mb
 
+// TODO make this internal only
+
 /**
  *  /api/upload route. Expects the request to contain a formData that has a "file" key.
  * Returns a 400 if file key is missing.
@@ -26,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.redirect("http://localhost.com", 301); // TODO change this proper path in the future
   } catch (err: unknown) {
-    // TODO make this handle status code and messages better.
+    // TODO better error handling
     logger.error("ERROR api/upload", err);
     return err instanceof Error
       ? NextResponse.json({ message: err.message }, { status: 400 })
@@ -50,3 +52,4 @@ function validateFile(file: File) {
     throw new Error("File is too large. Maximum size is 90mb.");
   }
 }
+
